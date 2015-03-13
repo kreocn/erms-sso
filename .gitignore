@@ -41,3 +41,16 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#==============
+# MyGnore
+#==============
+#eclipse config
+/.externalToolBuilders/
+/.settings/
+/build/
+/.project
+/.classpath
+/bin/
+META-INF/
+/target/
