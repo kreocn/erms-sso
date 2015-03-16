@@ -1,3 +1,7 @@
+<%@page import="java.util.Enumeration"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%--
 
     Licensed to Jasig under one or more contributor license
@@ -24,5 +28,32 @@
     <p><spring:message code="screen.success.success" /></p>
     <p><spring:message code="screen.success.security" /></p>
   </div>
+  <div>附加信息在此---------------------------</div>
+<%
+Enumeration<String> keys = request.getAttributeNames();
+while (keys.hasMoreElements()) {
+	String key = keys.nextElement();
+	String value = request.getAttribute(key).toString();
+	//this.appendConfig(key, value);
+	out.println("====================================================<br />");
+	out.println("<span style='color:red'>"  +key + "</span>:" + value);
+	out.println("<br />====================================================<br />");
+}
+
+out.println("====================================================<br />");
+out.println("==================  SESSION START  ====================<br />");
+out.println("====================================================<br />");
+
+Enumeration<String> sessions = request.getSession().getAttributeNames();
+while (sessions.hasMoreElements()) {
+	String key = sessions.nextElement();
+	String value = request.getSession().getAttribute(key).toString();
+	out.println("====================================================<br />");
+	out.println("<span style='color:red'>"  +key + "</span>:" + value);
+	out.println("<br />====================================================<br />");
+}
+
+out.println(request.getAttribute("credentials"));
+%>
 <jsp:directive.include file="includes/bottom.jsp" />
 

@@ -18,6 +18,8 @@
     under the License.
 
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:if test="${param.service!=null || param.service!=''}"><c:redirect url="${param.service}" /></c:if>
 <jsp:directive.include file="includes/top.jsp" />
   <div id="msg" class="success">
     <h2><spring:message code="screen.logout.header" /></h2>

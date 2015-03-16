@@ -1,16 +1,13 @@
 package org.cas.ext;
 
-import org.jasig.cas.authentication.handler.DefaultPasswordEncoder;
+import org.jasig.cas.authentication.UsernamePasswordCredential;
 
 public class Code {
 	public static void main(String[] args) {
-		// org.jasig.cas.adaptors.jdbc.QueryDatabaseAuthenticationHandler
-		// org.jasig.cas.adaptors.jdbc.QueryDatabaseAuthenticationHandler
-		String a = "123456";
-		System.out.println(MD5Plus.encrypt(a));
-
-		DefaultPasswordEncoder e = new DefaultPasswordEncoder("MD5");
-		e.setCharacterEncoding("UTF-8");
-		System.out.println(e.encode(a));
+		// UsernamePasswordCredentials
+		UsernamePasswordCredential a;
+		// org.jasig.services.persondir.support.jdbc.SingleRowJdbcPersonAttributeDao
+		// org.jasig.cas.authentication.principal.
+		// org.jasig.cas.authentication.principal.PrincipalResolver
 	}
 }

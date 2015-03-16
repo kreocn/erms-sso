@@ -77,18 +77,39 @@
 
 	<!-- | Resolves a principal from a credential using an attribute repository that is configured to resolve | against a deployer-specific store (e.g. LDAP). -->
 	<bean id="primaryPrincipalResolver" class="org.jasig.cas.authentication.principal.PersonDirectoryPrincipalResolver">
-		<property name="attributeRepository" ref="attributeRepository" />
+		<!-- <property name="attributeRepository" ref="attributeRepository" /> -->
+		<property name="attributeRepository" ref="attributeRepositorySingleRow" />
 	</bean>
 
 	<!-- Bean that defines the attributes that a service may return. This example uses the Stub/Mock version. A real implementation may go against a database or LDAP server. The id should 
 		remain "attributeRepository" though. + -->
+	<!-- -->
 	<bean id="attributeRepository" class="org.jasig.services.persondir.support.StubPersonAttributeDao" p:backingMap-ref="attrRepoBackingMap" />
-
 	<util:map id="attrRepoBackingMap">
 		<entry key="uid" value="uid" />
 		<entry key="eduPersonAffiliation" value="eduPersonAffiliation" />
 		<entry key="groupMembership" value="groupMembership" />
 	</util:map>
+
+	<bean id="attributeRepositorySingleRow" class="org.jasig.services.persondir.support.jdbc.SingleRowJdbcPersonAttributeDao">
+		<constructor-arg index="0" ref="dataSource" />
+		<constructor-arg index="1" value="SELECT `UUID`,`TITLE`,`DEPT_CODE`,`USER_ROLES`,`FILESYSTEM_ROOT`,`USER_NAME` FROM s_sys_user where {0}" />
+		<property name="queryAttributeMapping">
+			<map>
+				<!-- 这里的key需写username，value对应数据库用户名字段 -->
+				<entry key="username" value="title" />
+			</map>
+		</property>
+		<property name="resultAttributeMapping">
+			<map>
+				<entry key="uuid" value="uuid" />
+				<entry key="dept_code" value="dept_code" />
+				<entry key="user_roles" value="user_roles" />
+				<entry key="user_name" value="user_name" />
+				<entry key="filesystem_root" value="filesystem_root" />
+			</map>
+		</property>
+	</bean>
 
 	<!-- Sample, in-memory data store for the ServiceRegistry. A real implementation would probably want to replace this with the JPA-backed ServiceRegistry DAO The name of this bean should 
 		remain "serviceRegistryDao". + -->
